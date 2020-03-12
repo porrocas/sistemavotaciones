@@ -3,6 +3,7 @@
     if(isset($_SESSION['rol'])){
         if($_SESSION['rol'] == 'votante'){
             $rol = $_SESSION['rol'];
+            require('./php/functionsDashBoard.php');
         } else {
             session_destroy();
             header('location: index.php');
@@ -28,7 +29,7 @@
     <div class="w-100 h-100">
         <div class="col-md-3 position-fixed h-100 bg-success d-flex flex-wrap justify-content-center"
             style="top: 0px; left: 0; z-index: 1000;">
-            <div class="w-100">
+            <div onclick="window.location = './dashboard.php';" style="cursor: pointer;" class="w-100">
                 <img src="./img/ponal_logo.png" alt="logo policía nacional" class="img-fluid">
             </div>
             <div class="w-100">
@@ -95,20 +96,25 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-9 position-absolute bg-light  h-100" style="right: 0; top: 0px;">
+        <div class="col-md-9 position-absolute h-100" style="right: 0; top: 0px;">
             <?php
                 if(isset($_GET['busqueda'])){
-                    switch ($variable) {
+                    switch ($_GET['busqueda']) {
                         case 'rot':
+                            include('./views/dashboard/candidatos.php');
                             break;
                         case 'fija':
+                            include('./views/dashboard/candidatos.php');
+                            break;
+                        case 'detalles':
+                            include('./views/dashboard/detalles.php');
                             break;
                         default:
-                            include('./views/main-votante.php');
+                            include('./views/dashboard/main-votante.php');
                             break;
                     }
                 } else {
-                    include('./views/main-votante.php');
+                    include('./views/dashboard/main-votante.php');
                 }
             ?>
         </div>
@@ -126,3 +132,6 @@
 </body>
 
 </html>
+<?php 
+    $conn->close();
+?>

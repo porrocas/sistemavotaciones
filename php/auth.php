@@ -11,6 +11,7 @@
                     $_SESSION['nombre'] = $info['nombres'];
                     $_SESSION['apellido'] = $info['apellidos'];
                     $_SESSION['user'] = $info['user'];
+                    $_SESSION['idLog'] = $info['id'];
                     $_SESSION['rol'] = $info['rol'];
                     header('location: ../index.php');
                 } else {
