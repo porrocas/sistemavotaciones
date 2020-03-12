@@ -87,9 +87,7 @@
                     <span class="w-100 text-light" style="font-size: 1em">Mi Registro de actividad:</span>
                 </div>
                 <div class="w-100">
-                    <button type="button" class="btn w-100 mt-2 text-light" style="background: #2D572C;">Votos</button>
-                    <button type="button" class="btn w-100 mt-2 text-light"
-                        style="background: #2D572C;">Observaciones</button>
+                    <a href="?busqueda=votos" class="btn w-100 mt-2 text-light" style="background: #2D572C;">Mis votos y observaciones</a>
                 </div>
                 <div class="w-100 mt-3">
                     <a href="./php/logout.php" class="btn btn-danger">Cerrar Sesión</a>
@@ -108,6 +106,12 @@
                             break;
                         case 'detalles':
                             include('./views/dashboard/detalles.php');
+                            break;
+                        case 'votos':
+                            include('./views/dashboard/votos.php');
+                            break;
+                        case 'observaciones':
+                            include('./views/dashboard/observaciones.php');
                             break;
                         default:
                             include('./views/dashboard/main-votante.php');

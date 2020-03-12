@@ -1,47 +1,47 @@
-<div class="w-100 d-flex flex-wrap justify-content-center">
+<dvi class="row">
     <?php
-        if($_SESSION['idLog'] == $_GET['idJurado']){
-            $idCandidato = $_GET['idCandidato'];
-            $idJurado = $_GET['idJurado'];
-
-            $datosDetalles = $conn->query("SELECT * FROM candidato WHERE id='$idCandidato'");
-
-            foreach($datosDetalles as $infoCan){
-                if($infoCan['ala'] == 'rot'){
-                    $ala = 'rotatoria';
-                } else {
-                    $ala = 'fija';
-                }
-                if($infoCan['observaciones'] == 'Ninguna'){
+        $idBusqueda = $_SESSION['idLog'];
+        $conDatosVotos = $conn->query("SELECT * FROM votos WHERE id_jurado='$idBusqueda'");
+        foreach ($conDatosVotos as $bus) {
+            $idCand = $bus['id_candidato'];
+            $conDatosCand = $conn->query("SELECT * FROM candidato WHERE id='$idCand'");
+            foreach($conDatosCand as $infoC){
+                if($bus['votos'] == 'si'){
                     echo 
                     '
-                    <div class="row w-100 d-flex flex-wrap m-3 justify-content-center border p-3">
-                        <div class="row d-flex flex-wrap col-md-12 justify-content-around align-items-center">
-                            <div class="col-md-6 mx-auto my-3">
-                                <img src="'.$infoCan['rutaFoto'].'" class="mx-auto" width="100%" alt="'.$infoCan['nombre'].'">
+                        <div class="col-md-5 d-flex flex-wrap justify-content-around align-items-center border m-3">
+                            <div class="col-md-6 my-2">
+                                <img src="'.$infoC['rutaFoto'].'" alt="'.$infoC['nombre'].'" class="img-fluid">
                             </div>
-                        </div>
-                        <div class="row col-md-12 d-flex flex-wrap justify-content-around align-items-center">
                             <div class="col-md-6">
-                                <h5 class="w-100 text-center my-3">'.$infoCan['nombre'].'</h5>
-                                <p style="margin-top: -10px">Grado: '.$infoCan['grado'].'</p>
-                                <p style="margin-top: -10px">Piloto: '.$infoCan['tipoPiloto'].'</p>
-                                <p style="margin-top: -10px">Antigüedad como policía: '.$infoCan['antPolicia'].' Años</p>
-                                <p style="margin-top: -10px">Antigüedad Aviación: '.$infoCan['antAviacion'].' Años</p>
-                                <p style="margin-top: -10px">Unidad Actual: '.$infoCan['unidadActual'].' horas</p>
-                                <p style="margin-top: -10px">Horas de vuelo totales: '.$infoCan['horasTot'].' horas</p>
-                                <p style="margin-top: -10px">Horas de vuelo en aeronave actual: '.$infoCan['horasAero'].'</p>
-                                <p style="margin-top: -10px">Ala : '.$ala.'</p>
-                                <p style="margin-top: -10px">Linea : '.$infoCan['linea'].'</p>
+                                <p>'.$infoC['nombre'].'</p>
+                                <p style="margin-top: -10px">'.$infoC['linea'].'</p>
+                                <h5 style="color: green">Mi Voto: '.$bus['votos'].'</h5>
                             </div>
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-warning btn-block mb-2" data-toggle="modal" data-target="#d'.$infoC['id'].'">
+                                Modificar Voto
+                            </button>
                         </div>
-                        <div class="col-md-8 d-flex flex-wrap justify-content-center align-items-center">
-                            <form class="w-100" action="./php/subirVoto.php" method="post">
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="d'.$infoC['id'].'" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Modificar voto de '.$infoC['nombre'].'</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                <form class="w-100" action="./php/modificarVoto.php" method="post">
                                 <input type="hidden" name="idJurado" value="'.$_SESSION['idLog'].'">
+                                <input type="hidden" name="idVoto" value="'.$bus['id'].'">
                                 <input type="hidden" name="idCandidato" value="'.$infoCan['id'].'">
                                 <div class="form-group">
                                     <label for="exampleFormControlTextarea1">Agregar Observaciones:</label>
-                                    <textarea class="form-control" id="exampleFormControlTextarea1" name="observacion" rows="3" required>Ninguna.</textarea>
+                                    <textarea class="form-control" id="exampleFormControlTextarea1" name="observacion" rows="3" required>'.$bus['observaciones'].'</textarea>
                                 </div>
                                 <fieldset class="form-group">
                                     <div class="row">
@@ -79,45 +79,49 @@
                                     </div>
                                 </div>
                             </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
                     ';
                 } else {
                     echo 
-                    ' 
-                    <div class="row w-100 d-flex flex-wrap m-3 justify-content-center border p-3">
-                        <div class="row d-flex flex-wrap col-md-12 justify-content-around align-items-center">
-                            <div class="col-md-6 mx-auto my-3">
-                                <img src="'.$infoCan['rutaFoto'].'" class="mx-auto" width="100%" alt="'.$infoCan['nombre'].'">
+                    '
+                        <div class="col-md-5 d-flex flex-wrap justify-content-around align-items-center border m-3">
+                            <div class="col-md-6 my-2">
+                                <img src="'.$infoC['rutaFoto'].'" alt="'.$infoC['nombre'].'" class="img-fluid">
                             </div>
-                        </div>
-                        <div class="row col-md-12 d-flex flex-wrap justify-content-around align-items-center">
                             <div class="col-md-6">
-                                <h5 class="w-100 text-center my-3">'.$infoCan['nombre'].'</h5>
-                                <p style="margin-top: -10px">Grado: '.$infoCan['grado'].'</p>
-                                <p style="margin-top: -10px">Piloto: '.$infoCan['tipoPiloto'].'</p>
-                                <p style="margin-top: -10px">Antigüedad como policía: '.$infoCan['antPolicia'].' Años</p>
-                                <p style="margin-top: -10px">Antigüedad Aviación: '.$infoCan['antAviacion'].' Años</p>
-                                <p style="margin-top: -10px">Unidad Actual: '.$infoCan['unidadActual'].' horas</p>
-                                <p style="margin-top: -10px">Horas de vuelo totales: '.$infoCan['horasTot'].' horas</p>
-                                <p style="margin-top: -10px">Horas de vuelo en aeronave actual: '.$infoCan['horasAero'].'</p>
-                                <p style="margin-top: -10px">Ala : '.$ala.'</p>
-                                <p style="margin-top: -10px">Linea : '.$infoCan['linea'].'</p>
+                                <p>'.$infoC['nombre'].'</p>
+                                <p style="margin-top: -10px">'.$infoC['linea'].'</p>
+                                <h5 style="color: red">Mi Voto: '.$bus['votos'].'</h5>
                             </div>
-                            <div class="card text-white bg-danger mb-3 col-md-5">
-                                <div class="card-header">Nota: </div>
-                                <div class="card-body">
-                                    <p class="card-text">'.utf8_encode($infoCan['observaciones']).'</p>
-                                </div>
-                            </div>
+                            <button type="button" class="btn btn-warning btn-block mb-2" data-toggle="modal" data-target="#d'.$infoC['id'].'">
+                                Modificar Voto
+                            </button>
                         </div>
-                        <div class="col-md-8 d-flex flex-wrap justify-content-center align-items-center">
-                            <form class="w-100" action="./php/subirVoto.php" method="post">
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="d'.$infoC['id'].'" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Modificar voto de '.$infoC['nombre'].'</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                <form class="w-100" action="./php/modificarVoto.php" method="post">
                                 <input type="hidden" name="idJurado" value="'.$_SESSION['idLog'].'">
+                                <input type="hidden" name="idVoto" value="'.$bus['id'].'">
                                 <input type="hidden" name="idCandidato" value="'.$infoCan['id'].'">
                                 <div class="form-group">
                                     <label for="exampleFormControlTextarea1">Agregar Observaciones:</label>
-                                    <textarea class="form-control" id="exampleFormControlTextarea1" name="observacion" rows="3" required>Ninguna.</textarea>
+                                    <textarea class="form-control" id="exampleFormControlTextarea1" name="observacion" rows="3" required>'.$bus['observaciones'].'</textarea>
                                 </div>
                                 <fieldset class="form-group">
                                     <div class="row">
@@ -155,15 +159,17 @@
                                     </div>
                                 </div>
                             </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
                     ';
                 }
-                
             }
-        } else {
-            http_response_code(500);
         }
     ?>
-</div>
+</dvi>
 
