@@ -1,0 +1,19 @@
+{
+  "name": "sistema-votaciones",
+  "version": "1.0.0",
+  "description": "sistema de votaciones para policia nacional",
+  "main": "index.php",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/porrocas/sistemavotaciones.git"
+  },
+  "author": "Daniel Mateus",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/porrocas/sistemavotaciones/issues"
+  },
+  "homepage": "https://github.com/porrocas/sistemavotaciones#readme"
+}
