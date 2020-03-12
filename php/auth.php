@@ -10,6 +10,7 @@
                     session_start();
                     $_SESSION['nombre'] = $info['nombres'];
                     $_SESSION['apellido'] = $info['apellidos'];
+                    $_SESSION['user'] = $info['user'];
                     $_SESSION['rol'] = $info['rol'];
                     header('location: ../index.php');
                 } else {

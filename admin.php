@@ -3,6 +3,7 @@
     if(isset($_SESSION['rol'])){
         if($_SESSION['rol'] == 'moderador'){
             $rol = $_SESSION['rol'];
+            require('./php/functionsAdmin.php');
         } else {
             session_destroy();
             header('location: index.php');
