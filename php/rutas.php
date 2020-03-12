@@ -15,6 +15,6 @@
         }
     } else {
         session_destroy();
-        header('location: ./login.php?login=FailedRoute');
+        header('location: ./login.php?login=false');
     }
 ?>

@@ -1,0 +1,9 @@
+body,
+html {
+    width: 100%;
+}
+
+#formCrearUsuario {
+    border-radius: 5px;
+    box-shadow: 3px 3px 3px grey;
+}

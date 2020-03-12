@@ -3,12 +3,13 @@
         require('./config/con-auth.php');
         $user = $_POST['user'];
         $pass = $_POST['pass'];
-        $consulta = $conn->query("SELECT user, pass, rol FROM usuarios WHERE user='$user'");
+        $consulta = $conn->query("SELECT * FROM usuarios WHERE user='$user'");
         if(mysqli_num_rows($consulta) != 0){
             foreach($consulta as $info){
                 if(password_verify($pass, $info['pass'])){
                     session_start();
-                    $_SESSION['user'] = $info['user'];
+                    $_SESSION['nombre'] = $info['nombres'];
+                    $_SESSION['apellido'] = $info['apellidos'];
                     $_SESSION['rol'] = $info['rol'];
                     header('location: ../index.php');
                 } else {
