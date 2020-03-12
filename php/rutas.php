@@ -10,10 +10,11 @@
                 break;
             default:
                 session_destroy();
-                header('location: ./login.php');
+                header('location: ./login.php?login=failedDefalut');
                 break;
         }
     } else {
         session_destroy();
-        header('location: ./login.php');
+        header('location: ./login.php?login=FailedRoute');
     }
+?>

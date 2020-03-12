@@ -14,7 +14,7 @@
     <link href="https://fonts.googleapis.com/css?family=Oxygen&display=swap" rel="stylesheet">
 
 </head>
-<body>
+<body id="particles-js">
 
     <div class="wrapper fadeInDown">
         <div id="formContent">
@@ -26,10 +26,10 @@
             </div>
 
             <!-- Login Form -->
-            <form>
-                <input type="text" id="login" class="fadeIn second" name="login" placeholder="login">
-                <input type="password" id="password" class="fadeIn third" name="login" placeholder="password">
-                <input type="submit" class="fadeIn fourth" value="Iniciar Sesión">
+            <form action="./php/auth.php" method="post">
+                <input type="text" id="login" class="fadeIn second" name="user" placeholder="login" required>
+                <input type="password" id="password" class="fadeIn third" name="pass" placeholder="password" required>
+                <input type="submit" name="btnAuth" class="fadeIn fourth" value="Iniciar Sesión">
             </form>
 
             <!-- Remind Passowrd -->
@@ -44,5 +44,6 @@
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    
 </body>
 </html>
