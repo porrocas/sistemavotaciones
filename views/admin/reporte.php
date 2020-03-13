@@ -50,6 +50,9 @@
     </div>
 </div>
     <?php 
+
+        $datosDeVotos = $conn->query("SELECT * FROM votos");
+        
     ?>
 <script>
 
