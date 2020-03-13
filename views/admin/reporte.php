@@ -40,49 +40,20 @@
             </div>
         </div>
     </div>
-    <div class="row w-100">
-        <div class="col-md-4 d-flex justify-content-center mb-3">
+    <div class="row w-100 d-flex justify-content-around">
+        <div class="d-flex flex-wrap border d-flex justify-content-center mb-3" style="width: 50%">
+            <h6 class="w-100 text-center">Votos totales para todos los candidatos</h6>
             <canvas class="col-md-12" id="myChart1"></canvas>
-        </div>
-        <div class="col-md-4 d-flex justify-content-center mb-3">
-            <canvas class="col-md-12" id="myChart2"></canvas>
-        </div>
-        <div class="col-md-4 d-flex justify-content-center mb-3">
-            <canvas class="col-md-12" id="myChart3"></canvas>
+            <p class="w-100 text-center mt-2">Votos totales por si: <?php echo $vps ?></p>
+            <p class="w-100 text-center" style="margin-top: -20px">Votos totales por no: <?php echo $vpn ?></p>
         </div>
     </div>
 </div>
-
+    <?php 
+    ?>
 <script>
-var ctx2 = document.getElementById('myChart2').getContext('2d');
-
-var myChart2 = new Chart(ctx2, {
-  type: 'doughnut',
-  data: {
-    labels: ['Votos Por Si', 'Votos Por No',],
-    datasets: [{
-      label: '# of Tomatoes',
-      data: [<?php echo $vps?>,<?php echo $vpn?>],
-      backgroundColor: [
-        'rgba(0, 255, 0, 0.5)',
-        'rgba(255, 0, 0, 0.5)'
-      ],
-      borderColor: [
-        'green',
-        'red'
-      ],
-      borderWidth: 1
-    }]
-  },
-  options: {
-   	//cutoutPercentage: 40,
-    responsive: true,
-
-  }
-});
 
 var ctx1 = document.getElementById('myChart1').getContext('2d');
-
 var myChart1 = new Chart(ctx1, {
   type: 'doughnut',
   data: {
@@ -107,34 +78,6 @@ var myChart1 = new Chart(ctx1, {
 
   }
 });
-
-var ctx3 = document.getElementById('myChart3').getContext('2d');
-
-var myChart3 = new Chart(ctx3, {
-  type: 'doughnut',
-  data: {
-    labels: ['Votos Por Si', 'Votos Por No',],
-    datasets: [{
-      label: '# of Tomatoes',
-      data: [<?php echo $vps?>,<?php echo $vpn?>],
-      backgroundColor: [
-        'rgba(0, 255, 0, 0.5)',
-        'rgba(255, 0, 0, 0.5)'
-      ],
-      borderColor: [
-        'green',
-        'red'
-      ],
-      borderWidth: 1
-    }]
-  },
-  options: {
-   	//cutoutPercentage: 40,
-    responsive: true,
-
-  }
-});
-
 
 </script>
 

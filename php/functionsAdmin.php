@@ -5,7 +5,7 @@
 
     $consultarUser1 = $conn->query("SELECT rol FROM usuarios WHERE rol='votante'");
     $consultarUser2 = $conn->query("SELECT * FROM candidato");
-    $consultarUser3 = $conn->query("SELECT id, votos FROM votos");
+    $consultarUser3 = $conn->query("SELECT id, votos, id_candidato FROM votos");
     $consultarUser4 = $conn->query("SELECT id FROM votos WHERE NOT observaciones='Ninguna.'");
 
     $conn->close();
