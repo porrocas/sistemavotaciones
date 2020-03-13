@@ -25,7 +25,7 @@
 
         foreach($consultarUser3 as $infoUser){
             $numeroVotos++;
-            if($infoUser['observaciones'] == 'Ninguna.'){
+            if($infoUser['observaciones'] != 'Ninguna.'){
                 $numeroObs++;
             }
         }

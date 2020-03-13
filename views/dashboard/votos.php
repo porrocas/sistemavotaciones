@@ -20,7 +20,7 @@
                             </div>
                             <!-- Button trigger modal -->
                             <button type="button" class="btn btn-warning btn-block mb-2" data-toggle="modal" data-target="#d'.$infoC['id'].'">
-                                Modificar Voto
+                                Modificar Voto u Observaciones
                             </button>
                         </div>
 
@@ -100,7 +100,7 @@
                                 <h5 style="color: red">Mi Voto: '.$bus['votos'].'</h5>
                             </div>
                             <button type="button" class="btn btn-warning btn-block mb-2" data-toggle="modal" data-target="#d'.$infoC['id'].'">
-                                Modificar Voto
+                                Modificar Voto u Observaciones
                             </button>
                         </div>
 

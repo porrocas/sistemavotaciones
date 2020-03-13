@@ -20,18 +20,23 @@
     <?php include('./views/meta.php') ?>
     <title>Moderador | Sistema de votación</title>
 
+
     <!--CSS-->
     <link rel="stylesheet" href="./css/admin.css">
-    
+
     <!--CSS BOOTSTRAP-->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    
 </head>
 
 <body>
     <!--NAV TOP-->
     <nav class="navbar navbar-expand-lg navbar-dark bg-success">
-        <a class="navbar-brand" href="admin.php"> <img src="./img/ponal_logo.png" alt="logo ponal" width="50px" heigh="50px">
+        <a class="navbar-brand" href="admin.php"> <img src="./img/ponal_logo.png" alt="logo ponal" width="50px"
+                heigh="50px">
             Moderador</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -57,7 +62,8 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item">Hola</li>
-            <li class="breadcrumb-item active" aria-current="page"><?php echo $_SESSION['nombre'] . ' ' . $_SESSION['apellido'] ?></li>
+            <li class="breadcrumb-item active" aria-current="page">
+                <?php echo $_SESSION['nombre'] . ' ' . $_SESSION['apellido'] ?></li>
         </ol>
     </nav>
     <!--NAV TOP BOTTOM-->
