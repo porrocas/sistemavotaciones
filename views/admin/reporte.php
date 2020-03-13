@@ -101,15 +101,20 @@
             }
         }
 
+        $resultadoVotosId = array();
+        $resultadoVotos = array();
+
         foreach($votosContados as $key => $value){
             $id = explode('-', $key);
             $datoPersona = $conn->query("SELECT * FROM candidato WHERE id='$id[1]'");
             foreach($datoPersona as $informacion){
-                if($value > 0){                        
+                if($value > 0){ 
+                    $resultadoVotosId[$key] = $key;                       
+                    $resultadoVotos[$key] = 'aprobado';                       
                     echo 
                     '
                         <div class="card border-success m-2" style="max-width: 18rem;">
-                            <div class="card-header text-success">Aprovado</div>
+                            <div class="card-header text-success">Aprobado</div>
                             <div class="card-body text-success">
                                 <div class="w-100-d-flex-justify-content-center">
                                     <img src="'.$informacion['rutaFoto'].'" alt="" width="100px" class="mx-auto my-2">
@@ -122,6 +127,8 @@
                     ';
                 } else {
                     if($value == 0){
+                        $resultadoVotosId[$key] = $key;                       
+                        $resultadoVotos[$key] = 'Empate de votos';                       
                         echo 
                         '
                             <div class="card border-warning m-2" style="max-width: 18rem;">
@@ -137,6 +144,8 @@
                             </div>
                         ';
                     } else {
+                        $resultadoVotosId[$key] = $key;                       
+                        $resultadoVotos[$key] = 'Rechazado';                       
                         echo 
                         '
                             <div class="card border-danger m-2" style="max-width: 18rem;">
@@ -157,6 +166,15 @@
         }
     ?>
     </div>
+    <form action="./php/index.php" method="post">
+        <input type="hidden" name="resultadoVotosId" value="<?php echo implode(',', $resultadoVotosId) ?>">
+        <input type="hidden" name="resultadoVotos" value="<?php echo implode(',', $resultadoVotos) ?>">
+        <input type="hidden" name="numeroVotantes" value="<?php echo $numeroVotantes ?>">
+        <input type="hidden" name="numeroCandidatos" value="<?php echo $numeroCandidatos ?>">
+        <input type="hidden" name="numeroVotos" value="<?php echo $numeroVotos ?>">
+        <input type="hidden" name="numObs" value="<?php echo $numObs ?>">
+        <button class="btn btn-success btn-lg btn-block">Generar Reporte</button>
+    </form>
 </div>
 
 <script>
