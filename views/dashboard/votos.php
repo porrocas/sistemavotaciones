@@ -38,7 +38,7 @@
                                 <form class="w-100" action="./php/modificarVoto.php" method="post">
                                 <input type="hidden" name="idJurado" value="'.$_SESSION['idLog'].'">
                                 <input type="hidden" name="idVoto" value="'.$bus['id'].'">
-                                <input type="hidden" name="idCandidato" value="'.$infoCan['id'].'">
+                                <input type="hidden" name="idCandidato" value="'.$infoC['id'].'">
                                 <div class="form-group">
                                     <label for="exampleFormControlTextarea1">Agregar Observaciones:</label>
                                     <textarea class="form-control" id="exampleFormControlTextarea1" name="observacion" rows="3" required>'.$bus['observaciones'].'</textarea>
@@ -118,7 +118,7 @@
                                 <form class="w-100" action="./php/modificarVoto.php" method="post">
                                 <input type="hidden" name="idJurado" value="'.$_SESSION['idLog'].'">
                                 <input type="hidden" name="idVoto" value="'.$bus['id'].'">
-                                <input type="hidden" name="idCandidato" value="'.$infoCan['id'].'">
+                                <input type="hidden" name="idCandidato" value="'.$infoC['id'].'">
                                 <div class="form-group">
                                     <label for="exampleFormControlTextarea1">Agregar Observaciones:</label>
                                     <textarea class="form-control" id="exampleFormControlTextarea1" name="observacion" rows="3" required>'.$bus['observaciones'].'</textarea>

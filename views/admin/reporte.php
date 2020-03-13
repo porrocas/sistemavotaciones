@@ -110,7 +110,7 @@
             foreach($datoPersona as $informacion){
                 if($value > 0){ 
                     $resultadoVotosId[$key] = $key;                       
-                    $resultadoVotos[$key] = 'aprobado';                       
+                    $resultadoVotos[$key] = 'aprobado';  
                     echo 
                     '
                         <div class="card border-success m-2" style="max-width: 18rem;">
@@ -128,7 +128,7 @@
                 } else {
                     if($value == 0){
                         $resultadoVotosId[$key] = $key;                       
-                        $resultadoVotos[$key] = 'Empate de votos';                       
+                        $resultadoVotos[$key] = 'Empate de votos'; 
                         echo 
                         '
                             <div class="card border-warning m-2" style="max-width: 18rem;">
@@ -145,7 +145,7 @@
                         ';
                     } else {
                         $resultadoVotosId[$key] = $key;                       
-                        $resultadoVotos[$key] = 'Rechazado';                       
+                        $resultadoVotos[$key] = 'Rechazado';
                         echo 
                         '
                             <div class="card border-danger m-2" style="max-width: 18rem;">
