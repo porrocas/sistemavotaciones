@@ -1,4 +1,5 @@
 <div class="w-100 h-100 d-flex justify-content-center align-items-center flex-wrap">
+
     <div class="jumbotron w-100">
         <h1 class="display-4 text-success">Reporte de votos del comité de autonomías</h1>
         <p class="lead">A continuación se presentaran los resultados de las votaciones del comité de autonomías.</p>
@@ -42,18 +43,122 @@
     </div>
     <div class="row w-100 d-flex justify-content-around">
         <div class="d-flex flex-wrap border d-flex justify-content-center mb-3" style="width: 50%">
-            <h6 class="w-100 text-center">Votos totales para todos los candidatos</h6>
+            <h6 class="w-100 text-center">Votos totales:</h6>
             <canvas class="col-md-12" id="myChart1"></canvas>
             <p class="w-100 text-center mt-2">Votos totales por si: <?php echo $vps ?></p>
             <p class="w-100 text-center" style="margin-top: -20px">Votos totales por no: <?php echo $vpn ?></p>
         </div>
     </div>
-</div>
-    <?php 
 
-        $datosDeVotos = $conn->query("SELECT * FROM votos");
-        
+    <div class="w-100 d-flex flex-wrap justify-content-around mx-auto">
+
+    <?php 
+        // id de candidatos
+        $datosDeVotos1 = $conn->query("SELECT id FROM candidato");
+        $idDelCand = array();
+        foreach ($datosDeVotos1 as $key) {
+            $indexName = 'id-' . $key['id'];
+            array_push($idDelCand, $indexName);
+        }
+
+        // votos por si
+        $datosDeVotos1 = $conn->query("SELECT id_candidato, count(*) FROM votos WHERE votos='si' GROUP BY id_candidato");
+        $datosdeVotosPorSi = array();
+
+        foreach ($datosDeVotos1 as $key) {
+            $indexName = 'id-' . $key['id_candidato'];
+            $datosdeVotosPorSi[$indexName] = $key['count(*)'];
+        }
+
+        // votos por no
+        $datosDeVotos2 = $conn->query("SELECT id_candidato, count(*) FROM votos WHERE votos='no' GROUP BY id_candidato");
+        $datosdeVotosPorNo = array();
+
+        $votosContados = array();
+
+        foreach ($datosDeVotos2 as $key) {
+            $indexName = 'id-' . $key['id_candidato'];
+            $datosdeVotosPorNo[$indexName] = $key['count(*)'];
+        }
+
+        foreach($idDelCand as $id){
+            if(array_key_exists($id, $datosdeVotosPorSi) && array_key_exists($id, $datosdeVotosPorNo)){
+                $votosS = $datosdeVotosPorSi[$id];
+                $votosN = $datosdeVotosPorNo[$id];
+                $votosContados[$id] = $votosS - $votosN;
+            } else {
+                if(array_key_exists($id, $datosdeVotosPorSi)){
+                    $votosS = $datosdeVotosPorSi[$id];
+                    $votosContados[$id] = $votosS;
+                } else {
+                    if(array_key_exists($id, $datosdeVotosPorNo)){
+                        $votosN = $datosdeVotosPorNo[$id];
+                        $votosN = -1*$votosN;
+                        $votosContados[$id] = $votosN;
+                    }
+                }
+                
+            }
+        }
+
+        foreach($votosContados as $key => $value){
+            $id = explode('-', $key);
+            $datoPersona = $conn->query("SELECT * FROM candidato WHERE id='$id[1]'");
+            foreach($datoPersona as $informacion){
+                if($value > 0){                        
+                    echo 
+                    '
+                        <div class="card border-success m-2" style="max-width: 18rem;">
+                            <div class="card-header text-success">Aprovado</div>
+                            <div class="card-body text-success">
+                                <div class="w-100-d-flex-justify-content-center">
+                                    <img src="'.$informacion['rutaFoto'].'" alt="" width="100px" class="mx-auto my-2">
+                                </div>
+                                <h5 class="card-title ">'.$informacion['nombre'].'</h5>
+                                <p class="card-text"> Linea: '.$informacion['linea'].'</p>
+                                <p class="card-text"> Aspirante a piloto de '.$informacion['tipoPiloto'].'</p>
+                            </div>
+                        </div>
+                    ';
+                } else {
+                    if($value == 0){
+                        echo 
+                        '
+                            <div class="card border-warning m-2" style="max-width: 18rem;">
+                                <div class="card-header text-warning">Igualdad En Votos</div>
+                                <div class="card-body text-warning">
+                                    <div class="w-100-d-flex-justify-content-center">
+                                        <img src="'.$informacion['rutaFoto'].'" alt="" width="100px" class="mx-auto my-2">
+                                    </div>
+                                    <h5 class="card-title ">'.$informacion['nombre'].'</h5>
+                                    <p class="card-text"> Linea: '.$informacion['linea'].'</p>
+                                    <p class="card-text"> Aspirante a piloto de '.$informacion['tipoPiloto'].'</p>
+                                </div>
+                            </div>
+                        ';
+                    } else {
+                        echo 
+                        '
+                            <div class="card border-danger m-2" style="max-width: 18rem;">
+                                <div class="card-header text-danger">Rechazado</div>
+                                <div class="card-body text-danger">
+                                    <div class="w-100-d-flex-justify-content-center">
+                                        <img src="'.$informacion['rutaFoto'].'" alt="" width="100px" class="mx-auto my-2">
+                                    </div>
+                                    <h5 class="card-title ">'.$informacion['nombre'].'</h5>
+                                    <p class="card-text"> Linea: '.$informacion['linea'].'</p>
+                                    <p class="card-text"> Aspirante a piloto de '.$informacion['tipoPiloto'].'</p>
+                                </div>
+                            </div>
+                        ';
+                    }
+                }
+            }
+        }
     ?>
+    </div>
+</div>
+
 <script>
 
 var ctx1 = document.getElementById('myChart1').getContext('2d');

@@ -8,8 +8,6 @@
     $consultarUser3 = $conn->query("SELECT id, votos, id_candidato FROM votos");
     $consultarUser4 = $conn->query("SELECT id FROM votos WHERE NOT observaciones='Ninguna.'");
 
-    $conn->close();
-
     $numeroVotantes = 0;
     $numeroCandidatos = 0;
     $numeroVotos = 0;
